@@ -26,7 +26,14 @@ class Summarizer:
 
     def extract_nouns(self):
         """ Extracts and returns all nouns from a body of text """
-        pass
+        words = nltk.word_tokenize(self.full_text)
+        tagged_words = nltk.pos_tag(words)
+        nouns = []
+        for (word, pos) in tagged_words:
+            if pos[:2] == "NN":
+                nouns.append(word)
+        return nouns
 
     def get_full_text(self):
+        """ Getter for text """
         return self.full_text
