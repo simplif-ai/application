@@ -1,0 +1,23 @@
+body {
+  font-family: 'Questrial', sans-serif;
+  margin: 0 auto;
+  text-align: center;
+  color: #1A334F;
+  width: 100%;
+}
+
+h1 {
+  font-family: 'Questrial', sans-serif;
+}
+p {
+  font-family: 'Crimson Text', serif;
+}
+
+.page {
+  padding: 20px;
+  height: 100vh;
+}
+
+.bgorange {
+  background-color: #F9B045;
+}
