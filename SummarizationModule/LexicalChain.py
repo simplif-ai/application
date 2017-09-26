@@ -18,11 +18,33 @@ import nltk
 
 
 class LexWord:
-    """ Class representing individual words within chains """
+    """ Class representing individual words within chains. """
 
-    def __init__(self):
+    def __init__(self, word, synset):
         """ Initialize field variables """
-        pass
+        self.word = word
+        self.synset = synset
+        self.count = 1
+
+    def add_count(self):
+        """ Adds another occurrence of word """
+        self.count += 1
+
+    def get_info(self):
+        """ Getter function for all fields """
+        return self.word, self.synset, self.count
+
+    def get_word(self):
+        """ Getter function for word """
+        return self.word
+
+    def get_synset(self):
+        """ Getter function for synset """
+        return self.synset
+
+    def get_count(self):
+        """ Getter function for count """
+        return self.count
 
 
 class LexChain:
