@@ -67,6 +67,28 @@ class LexChain:
         """ Getter function for word dictionary """
         return self.words
 
+    def get_simil(self, synset):
+        """ Uses basic heuristic to compare the relevance of a synset to the chain """
+        #TODO: use a better heuristic
+        highest = 0
+        for key in self.words:
+            simil = wn.path_similarity(self.words[key].get_synset(), synset)
+            if simil > highest:
+                highest = simil
+        return highest
+
+    def get_strength(self):
+        """ Uses basic heuristic to compute the internal strength of the chain """
+        #TODO: rework this so it updates dynamically
+        #TODO: use a better heuristic
+        total = 0
+        for key in self.words:
+            total += (self.words[key].get_count() - 1) * 10
+            for key2 in self.words:
+                if key != key2:
+                    total += 7 * wn.path_similarity(self.words[key].get_synset(), self.words[key2].get_synset())
+        return total
+
 
 class LexChainGroup:
     """ Class representing a possible grouping of chains """
