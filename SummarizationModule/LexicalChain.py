@@ -18,7 +18,7 @@ from nltk.corpus import wordnet as wn
 
 
 class LexWord:
-    """ Class representing individual words within chains. """
+    """ Class representing individual words within chains """
 
     def __init__(self, word, synset):
         """ Initialize field variables """
@@ -122,7 +122,7 @@ class LexChain:
         """
         Finds and returns the representative words of the chain
 
-        Only keeps words with more than the average amount of word occurences
+        Only keeps words with more than the average amount of word occurrences
         """
         #TODO: may need to filter out more than just half the words
         average = 0
