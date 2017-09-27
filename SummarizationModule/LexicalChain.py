@@ -12,7 +12,7 @@ DEVELOPER NOTES:
 # Libraries and Global Variables
 # =============================================================================
 
-import nltk
+from nltk.corpus import wordnet as wn
 
 # =============================================================================
 
@@ -50,9 +50,22 @@ class LexWord:
 class LexChain:
     """ Class representing chains of words within the same lexical context """
 
-    def __init__(self):
+    def __init__(self, words):
         """ Initialize field variables """
-        pass
+        self.words = dict()
+        if words != None:
+            self.words = words
+
+    def add_word(self, word, synset):
+        """ Adds new word along with its synset into the chain """
+        if word not in self.words:
+            self.words[word] = LexWord(word, synset)
+        else:
+            self.words[word].addCount()
+
+    def get_words(self):
+        """ Getter function for word dictionary """
+        return self.words
 
 
 class LexChainGroup:
