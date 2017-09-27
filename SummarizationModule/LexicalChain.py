@@ -28,7 +28,7 @@ class LexWord:
 
     def __repr__(self):
         """ String representation """
-        return word
+        return self.word
 
     def add_count(self):
         """ Adds another occurrence of word """
@@ -62,17 +62,18 @@ class LexChain:
 
     def __repr__(self):
         """ String representation """
-        wlist = []
+        word_list = []
         for word in self.words:
-            wlist.append(self.words[word].getWord())
-        return str(wlist)
+            word_list.append(self.words[word].get_word())
+
+        return str(word_list)
 
     def add_word(self, word, synset):
         """ Adds new word along with its synset into the chain """
         if word not in self.words:
             self.words[word] = LexWord(word, synset)
         else:
-            self.words[word].addCount()
+            self.words[word].add_count()
 
     def get_words(self):
         """ Getter function for word dictionary """
@@ -86,6 +87,7 @@ class LexChain:
             simil = wn.path_similarity(self.words[key].get_synset(), synset)
             if simil > highest:
                 highest = simil
+
         return highest
 
     def get_strength(self):
@@ -98,7 +100,42 @@ class LexChain:
             for key2 in self.words:
                 if key != key2:
                     total += 7 * wn.path_similarity(self.words[key].get_synset(), self.words[key2].get_synset())
+
         return total
+
+    def get_score(self):
+        """
+        Obtains importance score of a chain
+
+        Calculated as such:
+        score = length * h_index (homogeneity)
+        """
+        length = 0
+        for key in self.words:
+            length += self.words[key].get_count()
+
+        h_index = 1 - (len(self.words.keys()) / length)
+
+        return length * h_index
+
+    def get_key_words(self):
+        """
+        Finds and returns the representative words of the chain
+
+        Only keeps words with more than the average amount of word occurences
+        """
+        #TODO: may need to filter out more than just half the words
+        average = 0
+        for key in self.words:
+            average += self.words[key].get_count()
+        average = average / len(self.words.keys())
+
+        key_words = []
+        for key in self.words:
+            if self.words[key].get_count() >= average:
+                key_words.append(key)
+
+        return key_words
 
 
 class LexChainGroup:
