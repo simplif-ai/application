@@ -26,6 +26,10 @@ class LexWord:
         self.synset = synset
         self.count = 1
 
+    def __repr__(self):
+        """ String representation """
+        return word
+
     def add_count(self):
         """ Adds another occurrence of word """
         self.count += 1
@@ -55,6 +59,13 @@ class LexChain:
         self.words = dict()
         if words != None:
             self.words = words
+
+    def __repr__(self):
+        """ String representation """
+        wlist = []
+        for word in self.words:
+            wlist.append(self.words[word].getWord())
+        return str(wlist)
 
     def add_word(self, word, synset):
         """ Adds new word along with its synset into the chain """
