@@ -12,14 +12,15 @@ DEVELOPER NOTES:
 # Libraries and Global Variables
 # =============================================================================
 
-from SummarizationModule import Summarizer
+from SummarizationModule.Summarizer import Summarizer
 
 # =============================================================================
 
 
 def main():
     """ Main method for initializing a run """
-    print("There's nothing to run yet!")
+    tester = Summarizer("I hit a baseball with my bat.")
+    print(tester.extract_nouns())
 
 
 if __name__ == "__main__":
