@@ -14,12 +14,13 @@ DEVELOPER NOTES:
 
 import unittest
 from SummarizationModule.LexicalChain import LexWord, LexChain, LexChainGroup
+from nltk.corpus import wordnet as wn
 
 # =============================================================================
 
 
 class TestLexWord(unittest.TestCase):
-    """ Test cases for extract_nouns()"""
+    """ Test cases for LexWord """
 
     def test_basic(self):
         test_word = LexWord("ball", None)
@@ -31,6 +32,22 @@ class TestLexWord(unittest.TestCase):
         test_word.add_count()
         test_word.add_count()
         self.assertEqual(test_word.get_count(), 3)
+
+    def test_info(self):
+        syn = wn.synsets("roll", 'n')[0]
+        test_word = LexWord("roll", syn)
+        res_word, res_syn, res_count = test_word.get_info()
+        self.assertEqual(res_word, "roll")
+        self.assertEqual(res_syn, syn)
+        self.assertEqual(res_count, 1)
+
+
+class TestLexChain(unittest.TestCase):
+    """ Test cases for LexChain """
+
+
+class TestLexChainGroup(unittest.TestCase):
+    """ Test cases for LexChainGroup """
 
 
 if __name__ == "__main__":
