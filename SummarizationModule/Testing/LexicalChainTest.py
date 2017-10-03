@@ -45,9 +45,22 @@ class TestLexWord(unittest.TestCase):
 class TestLexChain(unittest.TestCase):
     """ Test cases for LexChain """
 
+    def test_basic(self):
+        test_chain = LexChain()
+        test_chain.add_word("hello", None)
+        test_chain.add_word("world", None)
+        wlist = test_chain.get_words()
+        self.assertEqual(wlist["world"].get_word(), "world")
+
 
 class TestLexChainGroup(unittest.TestCase):
     """ Test cases for LexChainGroup """
+
+    def test_basic(self):
+        test_group = LexChainGroup()
+        test_group.add_to_chain("roll", wn.synsets("roll", 'n')[0])
+        wlist = test_group.get_chains()[0].get_words()
+        self.assertEqual(wlist["roll"].get_word(), "roll")
 
 
 if __name__ == "__main__":
