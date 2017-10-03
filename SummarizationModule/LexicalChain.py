@@ -141,6 +141,64 @@ class LexChain:
 class LexChainGroup:
     """ Class representing a possible grouping of chains """
 
-    def __init__(self):
+    def __init__(self, chains=None):
         """ Initialize field variables """
-        pass
+        self.chains = []
+        if chains != None:
+            self.chains = chains
+
+    def get_most_relevant(self, synsetset):
+        """ Obtain the most relevant chain to the synset out of the chain group """
+        maxscore = 0
+        maxsyn = None
+        for synset in synsetset:
+            score = 0
+            for chain in self.chains:
+                simil = chain.get_simil(synset)
+                if simil > score:
+                    score = simil
+            if score >= maxscore:
+                maxscore = score
+                maxsyn = synset
+        return maxsyn
+
+    def add_to_chain(self, word, synset):
+        """ Add a word to one of the chains of the chain group """
+        done = False
+        max_simil = 0
+        for chain in self.chains:
+            simil = chain.get_simil(synset)
+            if simil > max_simil and simil > 0.2:
+                chain.add_word(word, synset)
+                done = True
+
+        if not done:
+            newchain = LexChain()
+            newchain.add_word(word, synset)
+            self.chains.append(newchain)
+
+    def get_strength(self):
+        """ Return the sum of all chains in the group """
+        total = 0
+        for chain in self.chains:
+            total += chain.get_strength()
+        return total
+
+    def get_chains(self):
+        """ Getter function for lexical chains """
+        return self.chains
+
+    def get_top_chains(self, n):
+        """ Returns the most relevant chains of the group """
+        scores = []
+        score_map = dict()
+        for chain in self.chains:
+            sc = chain.get_score()
+            scores.append(sc)
+            score_map[sc] = chain
+        scores.sort()
+        schains = [score_map[x] for x in scores]
+        skchains = []
+        for chain in schains:
+            skchains.append(chain.get_key_words())
+        return skchains[-n:]
