@@ -16,7 +16,7 @@ DEVELOPER NOTES:
 from flask import Flask, render_template, jsonify, request
 
 # Create a Flask object
-application = Flask(__name__)
+application = Flask(__name__, template_folder='')
 
 # Form data variable name
 var = 'text'
@@ -53,7 +53,7 @@ def summarize():
         # If there is a GET or HEAD request then send the redirect page because it is probably done from a browser
 	if request.method != 'POST':
                 # TODO Create an actual redirection page
-		return "REDIRECTION PAGE"
+		return render_template('redirect.html')
         # If our chosen variable name is included in the form data in the body
 	if var in request.form:
                 # Create an example response
