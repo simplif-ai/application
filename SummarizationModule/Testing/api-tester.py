@@ -36,6 +36,8 @@ class APItest(unittest.TestCase):
         json_data = json.loads(r.text)
         self.assertEqual(json_data['text'], BASIC_CONN)
 
+    # Because of the updates to the api this is no longer correct
+    # TODO: fix and add more api tests
     def test_basicResponse(self):
         r = requests.post(URL, data=BASIC_PARAMS)
         json_data = json.loads(r.text)
