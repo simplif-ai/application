@@ -12,6 +12,9 @@ DEVELOPER NOTES:
 # Libraries and Global Variables
 # =============================================================================
 
+import sys
+sys.path.append('../../')
+
 from SummarizationModule.Summarizer import Summarizer
 
 # =============================================================================
