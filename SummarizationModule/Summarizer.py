@@ -34,6 +34,11 @@ class Summarizer:
                 nouns.append(word)
         return nouns
 
+    def extract_sentences(self):
+        """ Extracts and returns all sentences from a body of text """
+        sents = nltk.sent_tokenize(self.full_text)
+        return sents
+
     def get_full_text(self):
         """ Getter for text """
         return self.full_text
