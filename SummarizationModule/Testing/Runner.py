@@ -19,8 +19,10 @@ from SummarizationModule.Summarizer import Summarizer
 
 def main():
     """ Main method for initializing a run """
-    tester = Summarizer("I hit a baseball with my bat.")
-    print(tester.extract_nouns())
+    with open("sample.txt", 'r') as f:
+        text = f.read()
+    tester = Summarizer(text)
+    print(tester.rank_sentences())
 
 
 if __name__ == "__main__":
