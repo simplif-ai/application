@@ -22,7 +22,7 @@ def main():
     with open("sample.txt", 'r') as f:
         text = f.read()
     tester = Summarizer(text)
-    print(tester.find_best_chains(4))
+    print(tester.rank_sentences())
 
 
 if __name__ == "__main__":
