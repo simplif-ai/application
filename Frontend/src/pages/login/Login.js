@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoginForm from './LoginForm';
 import GoogleLogin from './GoogleLogin';
+import '../../css/login.css';
 import apiFetch from '../../utils/api.js';
 
 class Login extends Component {
@@ -34,20 +35,14 @@ class Login extends Component {
   render() {
     return (
       <div className="page bgorange">
-        <div className="title">
-          simplif.ai<span></span>
+        <div className="title logo">
+          simplif.ai
         </div>
-        <div className="logincontainer">
-            <div className="loginbox">
-               <LoginForm login={this.handleSubmit} />
-            </div>
+        <div className="loginbox">
+            <LoginForm login={this.handleSubmit} />
         </div>
-        <label style={{"style":"underline","margin-bottom":"6px"}}>
-            or
-        </label>
-        <div className="logincontainer">
-              <GoogleLogin/>
-        </div>
+        <label> or </label> 
+      <GoogleLogin/>
       </div>
     );
   }
