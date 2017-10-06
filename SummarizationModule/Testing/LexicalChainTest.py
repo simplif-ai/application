@@ -55,6 +55,43 @@ class TestLexChain(unittest.TestCase):
         wlist = test_chain.get_words()
         self.assertEqual(wlist["world"].get_word(), "world")
 
+    def test_simil(self):
+        test_chain = LexChain()
+        test_chain.add_word("person", wn.synsets("person", 'n')[0])
+        test_chain.add_word("human", wn.synsets("human", 'n')[0])
+        simil = test_chain.get_simil(wn.synsets("man", 'n')[0])
+        self.assertGreater(simil, 0.2)
+
+    def test_strength(self):
+        test_chain = LexChain()
+        test_chain.add_word("person", wn.synsets("person", 'n')[0])
+        test_chain.add_word("human", wn.synsets("human", 'n')[0])
+        test_chain.add_word("man", wn.synsets("man", 'n')[0])
+        test_chain.add_word("person", wn.synsets("person", 'n')[0])
+        strength = test_chain.get_strength()
+        self.assertGreater(strength, 17.0)
+
+    def test_score(self):
+        test_chain = LexChain()
+        test_chain.add_word("person", wn.synsets("person", 'n')[0])
+        test_chain.add_word("human", wn.synsets("human", 'n')[0])
+        test_chain.add_word("man", wn.synsets("man", 'n')[0])
+        test_chain.add_word("person", wn.synsets("person", 'n')[0])
+        test_chain.add_word("person", wn.synsets("person", 'n')[0])
+        score = test_chain.get_score()
+        self.assertGreater(score, 1.0)
+        self.assertLess(score, 3.0)
+
+    def test_key_words(self):
+        test_chain = LexChain()
+        test_chain.add_word("person", wn.synsets("person", 'n')[0])
+        test_chain.add_word("human", wn.synsets("human", 'n')[0])
+        test_chain.add_word("man", wn.synsets("man", 'n')[0])
+        test_chain.add_word("person", wn.synsets("person", 'n')[0])
+        test_chain.add_word("person", wn.synsets("person", 'n')[0])
+        key_words = test_chain.get_key_words()
+        self.assertEqual(key_words, ["person"])
+
 
 class TestLexChainGroup(unittest.TestCase):
     """ Test cases for LexChainGroup """
