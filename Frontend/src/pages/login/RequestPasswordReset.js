@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/register.css';
+import '../../css/login.css';
 
 const PasswordReset = ({ login, error }) => (
   <div className="page bgorange">
@@ -10,10 +10,10 @@ const PasswordReset = ({ login, error }) => (
           {error ? `Error=${error}`:null}
         </div>
         <label placeholder="email" type="" htmlFor="email">
-          Enter your email address to reset your password.
+          Enter your email address to reset your password
         </label>
         <input type="email" name="email" required />
-        <input type="submit" value="submit" style={{"color":"#1A334F"}}/>
+        <input className="btn" type="submit" value="submit" style={{"color":"#1A334F"}}/>
         <a href='/login' style={{"display":"block", "margin-bottom":"6px"}}>Already have an account? Sign In</a>
         <a href='/register' style={{"display":"block"}}>Or register for an account.</a>
       </form>
