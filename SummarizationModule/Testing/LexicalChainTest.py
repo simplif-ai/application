@@ -102,6 +102,34 @@ class TestLexChainGroup(unittest.TestCase):
         wlist = test_group.get_chains()[0].get_words()
         self.assertEqual(wlist["roll"].get_word(), "roll")
 
+    def test_relevance(self):
+        test_group = LexChainGroup()
+        test_group.add_to_chain("roll", wn.synsets("roll", 'n')[0])
+        test_group.add_to_chain("roll", wn.synsets("roll", 'n')[0])
+        test_group.add_to_chain("roll", wn.synsets("roll", 'n')[0])
+        most_relevant = test_group.get_most_relevant(wn.synsets("roll", 'n'))
+        self.assertEqual(most_relevant, wn.synsets("roll", 'n')[0])
+
+    def test_strength(self):
+        test_group1 = LexChainGroup()
+        test_group2 = LexChainGroup()
+        test_group1.add_to_chain("roll", wn.synsets("roll", 'n')[0])
+        test_group1.add_to_chain("roll", wn.synsets("roll", 'n')[0])
+        test_group1.add_to_chain("roll", wn.synsets("roll", 'n')[0])
+        test_group2.add_to_chain("roll", wn.synsets("roll", 'n')[0])
+        test_group2.add_to_chain("roll", wn.synsets("roll", 'n')[0])
+        test_group2.add_to_chain("roll", wn.synsets("roll", 'n')[1])
+        self.assertGreater(test_group1.get_strength(), test_group2.get_strength())
+
+    def test_top_chains(self):
+        test_group = LexChainGroup()
+        test_group.add_to_chain("person", wn.synsets("person", 'n')[0])
+        test_group.add_to_chain("person", wn.synsets("person", 'n')[0])
+        test_group.add_to_chain("human", wn.synsets("human", 'n')[0])
+        test_group.add_to_chain("man", wn.synsets("man", 'n')[0])
+        test_group.add_to_chain("sausage", wn.synsets("sausage", 'n')[0])
+        best_chain = test_group.get_top_chains(1)
+        self.assertEqual(best_chain, [['person']])
 
 if __name__ == "__main__":
     """ Run main if this python file is executed """
