@@ -6,6 +6,7 @@
  */
 
 //List dependencies
+var config = require('./config');
 const express = require('express');
 const app = express();
 const parseurl = require('parseurl');
@@ -16,6 +17,9 @@ const request = require('request');
 const mysql = require('mysql');
 const nodemailer = require ('nodemailer');
 var jwt = require('jsonwebtoken');
+app.set('superSecret', config.secret); // secret variable
+
+
 //setup database
 var connection = mysql.createConnection({
     host: 'simplifaidb.caijj6vztwxw.us-east-2.rds.amazonaws.com',
@@ -65,6 +69,7 @@ app.get('/mocktext', function (req, res) {
 //is sent back to the user
 app.post('/sumarizertext', function (req, res) {
     //url subject to change once api is created
+    console.log('req.body', req.body);
     var summarizerApi = "https://ir.thirty2k.com/summarize";
     var options = {
         headers: {
@@ -82,6 +87,7 @@ app.post('/sumarizertext', function (req, res) {
         //sends it back to the summarizertext endpoint which would be the
         //body response to any request that posts a request to it
         //uses json to send a stringfied json object of the non-object data from api
+
         if (!error && response.statusCode === 200) {
           res.send(response.body);
         } else {
@@ -89,19 +95,6 @@ app.post('/sumarizertext', function (req, res) {
         }
     });
 });
-
-//another request to get the saved version from the user of the summarizer text
-//and send it to db
-app.post('/savetodb', function(req, res) {
-    //sends to db
-        console.log('statusCode', response.statusCode);
-        if (!error && response.statusCode === 200) {
-            res.send(body);
-          } else {
-            res.send({ success: false, error: error });
-          }
-});
-
 
 //another request to get the saved version from the user of the summarizer text
 //and send it to db
@@ -216,16 +209,21 @@ function setSigninStatus(isSignedIn) {
     }
   };
 
-
 //login endpoint
 //allows the user to login with google authentication
-app.post('/loginWithGoogle', function(req, res) {
+app.post('/loginToGoogle', function(req, res) {
 	if (GoogleAuth.isSignedIn.get()) {
 		//user is already signed in!
     } else {
       // User is not signed in. Start Google auth flow.
       GoogleAuth.signIn();
     }
+
+    var token = jwt.sign(payload, "secretString", {
+			          expiresIn: 60 * 60 * 24 // expires in 24 hours
+	});
+
+	res.status(200).send({ success: true, token: token});
 
     //return JWT token
 });
@@ -239,13 +237,20 @@ app.post('/login', function(req, res) {
 
 	connection.query("SELECT * FROM users WHERE email = ? AND password = ?", [email, password], function (err, result) {
 		if (err) {
-			res.status(500).send({ success: false, error: error });
+			res.status(500).send({ success: false, error: err });
 		} else {
 							console.log(result)
+			const payload = {
+      			admin: email
+    		};
+
+			var token = jwt.sign(payload, app.get('superSecret'), {
+			          expiresIn: 60 * 60 * 24 // expires in 24 hours
+			 });
 
 			if (result.length == 1) {
 				//do JWT stuff
-				res.status(200).send({ success: true});
+				res.status(200).send({ success: true, token: token});
 			} else {
 				res.status(500).send({ success: true, error: "Username or password is incorrect."});
 			}
@@ -258,12 +263,13 @@ app.post('/changePassword', function(req, res) {
 	//talk to database here once Lena has imported it
 	var user = req.body;
 	var email = user.email;
+	var password = user.password;
 	var newPassword = user.newPassword;
 
-	connection.query("SELECT * FROM users WHERE email = ?", [email], function (err, result) {
+	connection.query("SELECT * FROM users WHERE email = ? AND password = ?", [email, password], function (err, result) {
 		if (err) {
 			console.log("err");
-			res.status(500).send({ success: false, error: error });
+			res.status(500).send({ success: false, error: err });
 		} else {
 			console.log("Not err");
 			console.log(result);
@@ -288,6 +294,7 @@ app.post('/changePassword', function(req, res) {
 //this endpoint will send an email to the email passed in using the mailer. The email will contain a link so the user can reset their password
 app.post('/resetPassword', function(req, res) {
 	//use mailer to send email to the email address passed in.
+
 
 });
 
@@ -326,16 +333,6 @@ app.post('/deleteAccount', function(req,res) {
 								console.log("Couldn't delete note");
 							}
 						});
-
-						/*
-						connection.query("SELECT * FROM summaries WHERE noteID = result[i].idNote", function (err, result) {
-							if (err) {
-
-							} else {
-
-							}
-						})
-						*/
 					}
 
 					//all notes deleted, delete the actual user!
@@ -357,7 +354,7 @@ app.post('/deleteAccount', function(req,res) {
 app.post('/createAccount', function(req, res) {
 
 	//res.status(500).send({success: false, body: req.body.name})
-
+  console.log('req', req.body);
 	var user = req.body
 	var name = user.name
 	var email = user.email
@@ -368,9 +365,9 @@ app.post('/createAccount', function(req, res) {
 	connection.query("SELECT * FROM users WHERE email = ?", [email], function (err, result) {
 		console.log("inside select");
 		if (err) {
-			res.status(500).send({ success: false, error: error });
+			res.status(500).send({ success: false, error: err });
 		}
-
+    console.log('result', result);
 		if (result.length > 0) {
 			//sorry, this email is already taken!
 			console.log("Email address already taken.");
