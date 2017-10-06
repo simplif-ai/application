@@ -23,13 +23,6 @@ BASIC_CONN = [['this is', 1, 2], ['a sample', 3, 4], ['list', 5, 6], ['for testi
 
 class APItest(unittest.TestCase):
 
-    def correctResponse(self, x):
-        t = x.split(" ")
-        res = []
-        for x in range(len(t)):
-            res.append([t[x], x * 10, x]) 
-        return res
-
     def makeRequest(self, inp):
         r = requests.post(URL, data=inp)
         json_data = json.loads(r.text)
