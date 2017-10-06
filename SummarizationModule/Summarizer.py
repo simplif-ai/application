@@ -12,6 +12,9 @@ DEVELOPER NOTES:
 # Libraries and Global Variables
 # =============================================================================
 
+import sys
+sys.path.append('../')
+
 import nltk
 from nltk.corpus import wordnet as wn
 from SummarizationModule.LexicalChain import LexChainGroup
