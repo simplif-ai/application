@@ -9,7 +9,7 @@
     * The text that you want summarized must be stored in a JSON variable called "text"
 #### Example
     {
-        "text": "Text that I wish to summarize., Please summarize me."
+        "text": "Text that I wish to summarize. Please summarize me."
     }
     
 ## What does the response look like
