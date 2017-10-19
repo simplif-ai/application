@@ -54,11 +54,13 @@ class LexWord:
 class LexChain:
     """ Class representing chains of words within the same lexical context """
 
-    def __init__(self, words=None):
+    def __init__(self, words=None, strength=0):
         """ Initialize field variables """
         self.words = dict()
+        self.strength = 0
         if words != None:
             self.words = words
+            self.strength = strength
 
     def __repr__(self):
         """ String representation """
@@ -72,8 +74,11 @@ class LexChain:
         """ Adds new word along with its synset into the chain """
         if word not in self.words:
             self.words[word] = LexWord(word, synset)
+            for key in self.words:
+                self.strength += 7 * wn.path_similarity(self.words[key].get_synset(), synset)
         else:
             self.words[word].add_count()
+            self.strength += 10
 
     def get_words(self):
         """ Getter function for word dictionary """
@@ -92,16 +97,8 @@ class LexChain:
 
     def get_strength(self):
         """ Uses basic heuristic to compute the internal strength of the chain """
-        #TODO: rework this so it updates dynamically
         #TODO: use a better heuristic
-        total = 0
-        for key in self.words:
-            total += (self.words[key].get_count() - 1) * 10
-            for key2 in self.words:
-                if key != key2:
-                    total += 7 * wn.path_similarity(self.words[key].get_synset(), self.words[key2].get_synset())
-
-        return total
+        return self.strength
 
     def get_score(self):
         """
