@@ -54,12 +54,14 @@ class LexWord:
 class LexChain:
     """ Class representing chains of words within the same lexical context """
 
-    def __init__(self, words=None, strength=0):
+    def __init__(self, words=None, length=0, strength=0):
         """ Initialize field variables """
         self.words = dict()
         self.strength = 0
+        self.length = 0
         if words != None:
             self.words = words
+            self.length = length
             self.strength = strength
 
     def __repr__(self):
@@ -79,6 +81,7 @@ class LexChain:
         else:
             self.words[word].add_count()
             self.strength += 10
+        self.length += 1
 
     def get_words(self):
         """ Getter function for word dictionary """
@@ -107,13 +110,9 @@ class LexChain:
         Calculated as such:
         score = length * h_index (homogeneity)
         """
-        length = 0
-        for key in self.words:
-            length += self.words[key].get_count()
+        h_index = 1 - (len(self.words.keys()) / self.length)
 
-        h_index = 1 - (len(self.words.keys()) / length)
-
-        return length * h_index
+        return self.length * h_index
 
     def get_key_words(self):
         """
