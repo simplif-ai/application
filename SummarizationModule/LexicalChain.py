@@ -83,10 +83,6 @@ class LexChain:
                 self.strength += 7 * wn.path_similarity(self.words[key].get_synset(), synset)
                 if len(self.word_q) > self.q_length:
                     self.word_q.pop(0)
-            """
-            for key in self.words:
-                self.strength += 7 * wn.path_similarity(self.words[key].get_synset(), synset)
-            """
         else:
             self.words[word].add_count()
             self.strength += 10
@@ -107,12 +103,6 @@ class LexChain:
             simil = wn.path_similarity(self.words[key].get_synset(), synset)
             if simil > highest:
                 highest = simil
-        """
-        for key in self.words:
-            simil = wn.path_similarity(self.words[key].get_synset(), synset)
-            if simil > highest:
-                highest = simil
-        """
 
         return highest
 
