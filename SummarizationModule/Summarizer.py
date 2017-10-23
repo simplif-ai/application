@@ -53,6 +53,8 @@ class Summarizer:
             if len(sets) > 0:
                 ss = lc_group.get_most_relevant(sets)
                 lc_group.add_to_chain(noun, ss)
+        for chain in lc_group.get_chains():
+            print(chain)
         top = lc_group.get_top_chains(num_chains)
         return top
 

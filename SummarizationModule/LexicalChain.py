@@ -54,14 +54,13 @@ class LexWord:
 class LexChain:
     """ Class representing chains of words within the same lexical context """
 
-    def __init__(self, words=None, length=0, strength=0, wqlen = 20):
+    def __init__(self, words=None, length=0, strength=0, wqlen = 10):
         """ Initialize field variables """
         self.words = dict()
         self.strength = 0
         self.length = 0
         self.q_length = wqlen
         self.word_q = []
-        self.word_q_table = dict()
         if words != None:
             self.words = words
             self.length = length
@@ -79,11 +78,21 @@ class LexChain:
         """ Adds new word along with its synset into the chain """
         if word not in self.words:
             self.words[word] = LexWord(word, synset)
+            self.word_q.append(word)
+            for key in self.word_q:
+                self.strength += 7 * wn.path_similarity(self.words[key].get_synset(), synset)
+                if len(self.word_q) > self.q_length:
+                    self.word_q.pop(0)
+            """
             for key in self.words:
                 self.strength += 7 * wn.path_similarity(self.words[key].get_synset(), synset)
+            """
         else:
             self.words[word].add_count()
             self.strength += 10
+            self.word_q.append(word)
+            if len(self.word_q) > self.q_length:
+                self.word_q.pop(0)
         self.length += 1
 
     def get_words(self):
@@ -94,10 +103,16 @@ class LexChain:
         """ Uses basic heuristic to compare the relevance of a synset to the chain """
         #TODO: use a better heuristic
         highest = 0
+        for key in self.word_q:
+            simil = wn.path_similarity(self.words[key].get_synset(), synset)
+            if simil > highest:
+                highest = simil
+        """
         for key in self.words:
             simil = wn.path_similarity(self.words[key].get_synset(), synset)
             if simil > highest:
                 highest = simil
+        """
 
         return highest
 

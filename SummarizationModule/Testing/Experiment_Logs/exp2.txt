@@ -1,0 +1,45 @@
+Experiment 2: Operation Wild Crayon
+
+Goal: In order to speed up the summarizer, we want to avoid scanning all
+nouns in the entire document for every new noun added to the lexical chains.
+Nouns at the beginning of the document do not contribute to the context of
+newer nouns. Thus, we wish to limit the number of nouns checked using a 
+queue.
+
+Text(s) used:
+sample.txt (4773 char)
+sample_long.txt (13544 char)
+
+Experiment Log:
+10/22 10:59PM
+Original code with sample.txt
+24.3
+
+10/22 11:07PM
+Modified with queue length 20 on sample.txt
+1.96
+Comments: summary was pretty bad, gonna investigate
+whoops, had a bug
+
+10/22 11:19PM
+Modified with queue length 20 on sample.txt
+17.9
+Comments: summary was almost as good, time was sped up
+
+10/22 11:30PM
+Modified with queue length 10 on sample.txt
+23.8
+Comments: summary was very good
+
+10/22 11:33PM
+Original code for sample_long.txt (0.4 proportion)
+440
+
+10/22 11:37PM
+Modified with queue length 10 on sample_long.txt
+176
+
+Results: Looks like adding this queue preserves summary quality and simultaneously
+speeds up summarizer for long texts. We will be keeping this queue.
+
+Experiment complete.
