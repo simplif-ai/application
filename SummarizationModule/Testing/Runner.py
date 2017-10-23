@@ -24,8 +24,11 @@ from SummarizationModule.Summarizer import Summarizer
 def main():
     """ Main method for initializing a run """
     t0 = time()
+    prop = 1.0
     with open("sample.txt", 'r') as f:
         text = f.read()
+    text = text[:int(len(text) * prop)]
+    print(len(text))
     tester = Summarizer(text)
     print(tester.rank_sentences())
     t1 = time()

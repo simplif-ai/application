@@ -54,11 +54,14 @@ class LexWord:
 class LexChain:
     """ Class representing chains of words within the same lexical context """
 
-    def __init__(self, words=None, length=0, strength=0):
+    def __init__(self, words=None, length=0, strength=0, wqlen = 20):
         """ Initialize field variables """
         self.words = dict()
         self.strength = 0
         self.length = 0
+        self.q_length = wqlen
+        self.word_q = []
+        self.word_q_table = dict()
         if words != None:
             self.words = words
             self.length = length
