@@ -54,11 +54,17 @@ class LexWord:
 class LexChain:
     """ Class representing chains of words within the same lexical context """
 
-    def __init__(self, words=None):
+    def __init__(self, words=None, length=0, strength=0, wqlen = 10):
         """ Initialize field variables """
         self.words = dict()
+        self.strength = 0
+        self.length = 0
+        self.q_length = wqlen
+        self.word_q = []
         if words != None:
             self.words = words
+            self.length = length
+            self.strength = strength
 
     def __repr__(self):
         """ String representation """
@@ -72,8 +78,18 @@ class LexChain:
         """ Adds new word along with its synset into the chain """
         if word not in self.words:
             self.words[word] = LexWord(word, synset)
+            self.word_q.append(word)
+            for key in self.word_q:
+                self.strength += 7 * wn.path_similarity(self.words[key].get_synset(), synset)
+                if len(self.word_q) > self.q_length:
+                    self.word_q.pop(0)
         else:
             self.words[word].add_count()
+            self.strength += 10
+            self.word_q.append(word)
+            if len(self.word_q) > self.q_length:
+                self.word_q.pop(0)
+        self.length += 1
 
     def get_words(self):
         """ Getter function for word dictionary """
@@ -83,7 +99,7 @@ class LexChain:
         """ Uses basic heuristic to compare the relevance of a synset to the chain """
         #TODO: use a better heuristic
         highest = 0
-        for key in self.words:
+        for key in self.word_q:
             simil = wn.path_similarity(self.words[key].get_synset(), synset)
             if simil > highest:
                 highest = simil
@@ -92,16 +108,8 @@ class LexChain:
 
     def get_strength(self):
         """ Uses basic heuristic to compute the internal strength of the chain """
-        #TODO: rework this so it updates dynamically
         #TODO: use a better heuristic
-        total = 0
-        for key in self.words:
-            total += (self.words[key].get_count() - 1) * 10
-            for key2 in self.words:
-                if key != key2:
-                    total += 7 * wn.path_similarity(self.words[key].get_synset(), self.words[key2].get_synset())
-
-        return total
+        return self.strength
 
     def get_score(self):
         """
@@ -110,13 +118,9 @@ class LexChain:
         Calculated as such:
         score = length * h_index (homogeneity)
         """
-        length = 0
-        for key in self.words:
-            length += self.words[key].get_count()
+        h_index = 1 - (len(self.words.keys()) / self.length)
 
-        h_index = 1 - (len(self.words.keys()) / length)
-
-        return length * h_index
+        return self.length * h_index
 
     def get_key_words(self):
         """

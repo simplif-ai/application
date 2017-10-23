@@ -1,0 +1,26 @@
+Experiment 1: Operation Beacon Warehouse
+
+Goal: In order to speed up the summarizer, we want to dynamically
+update strength and score instead of recomputing it every time it
+is needed. Our hypothesis is that doing so will reduce the runtime
+complexity from O(n^3) to O(n^2).
+
+Text used: sample.txt (4773 char)
+
+Experiment Log:
+10/19 12:08AM
+Original code
+36.8
+
+10/19 12:12AM
+Update strength dynamically
+23.76
+
+10/19 12:18AM
+Update score dynamically
+23.7
+
+Results: It seems we are headed in the right direction for our hypothesis.
+Results seem very positive, so this change will be pushed to our codebase.
+
+Experiment finished.
