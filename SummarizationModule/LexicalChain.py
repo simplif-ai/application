@@ -145,7 +145,7 @@ class LexChain:
 class LexChainGroup:
     """ Class representing a possible grouping of chains """
 
-    def __init__(self, chains=None, chain_cap=6):
+    def __init__(self, chains=None, chain_cap=-1):
         """ Initialize field variables """
         self.chains = []
         if chains != None:

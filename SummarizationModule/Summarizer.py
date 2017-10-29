@@ -28,6 +28,8 @@ class Summarizer:
     def __init__(self, full_text):
         """ Initialize field variables """
         self.full_text = full_text
+        self.sents = nltk.sent_tokenize(self.full_text)
+        print(len(self.sents))
 
     def extract_nouns(self):
         """ Extracts and returns all nouns from a body of text """
@@ -39,14 +41,13 @@ class Summarizer:
                 nouns.append(word)
         return nouns
 
-    def extract_sentences(self):
-        """ Extracts and returns all sentences from a body of text """
-        sents = nltk.sent_tokenize(self.full_text)
-        return sents
+    def get_sentences(self):
+        """ Returns all sentences from a body of text """
+        return self.sents
 
     def find_best_chains(self, num_chains):
         """ Generates chains and returns strongest chains """
-        lc_group = LexChainGroup()
+        lc_group = LexChainGroup(chain_cap = len(self.sents) // 6 + 1)
         nouns = self.extract_nouns()
         for noun in nouns:
             sets = wn.synsets(noun, 'n')
@@ -62,9 +63,8 @@ class Summarizer:
         multiplier = 1.0
         used_chains = [False] * len(top_chains)
         final_dataset = []
-        sentences = self.extract_sentences()
         weights = []
-        for sent in sentences:
+        for sent in self.sents:
             sent_words = nltk.word_tokenize(sent)
             weight = 1
             used = False
@@ -82,8 +82,8 @@ class Summarizer:
             weights.append(weight)
         ranks = [a[0] for a in sorted(enumerate(sorted(enumerate(weights), key=lambda x:x[1], reverse=True)), \
             key=lambda x:x[1][0])]
-        for i in range(len(sentences)):
-            final_dataset.append([sentences[i], ranks[i], i])
+        for i in range(len(self.sents)):
+            final_dataset.append([self.sents[i], ranks[i], i])
         return final_dataset
 
     def get_full_text(self):
