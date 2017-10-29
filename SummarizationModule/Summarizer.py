@@ -29,7 +29,6 @@ class Summarizer:
         """ Initialize field variables """
         self.full_text = full_text
         self.sents = nltk.sent_tokenize(self.full_text)
-        print(len(self.sents))
 
     def extract_nouns(self):
         """ Extracts and returns all nouns from a body of text """
