@@ -145,11 +145,12 @@ class LexChain:
 class LexChainGroup:
     """ Class representing a possible grouping of chains """
 
-    def __init__(self, chains=None):
+    def __init__(self, chains=None, chain_cap=-1):
         """ Initialize field variables """
         self.chains = []
         if chains != None:
             self.chains = chains
+        self.chain_cap = chain_cap
 
     def get_most_relevant(self, synsetset):
         """ Obtain the most relevant chain to the synset out of the chain group """
@@ -180,6 +181,12 @@ class LexChainGroup:
             newchain = LexChain()
             newchain.add_word(word, synset)
             self.chains.append(newchain)
+            if self.chain_cap != -1 and len(self.chains) > self.chain_cap:
+                min_ind = 0
+                for i in range(len(self.chains)):
+                    if self.chains[i].get_strength() < self.chains[min_ind].get_strength():
+                        min_ind = i
+                self.chains.pop(min_ind)
 
     def get_strength(self):
         """ Return the sum of all chains in the group """
