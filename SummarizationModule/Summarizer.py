@@ -58,26 +58,25 @@ class Summarizer:
 
     def rank_sentences(self):
         """ Ranks sentences in order of relevance and returns exportable dataset """
-        top_chains = self.find_best_chains(4)
+        #top_chains = self.find_best_chains(4)
+        top_chains = self.find_best_chains(len(self.sents) // 10 + 1)
         multiplier = 1.0
-        used_chains = [False] * len(top_chains)
+        chain_weights = [1.0] * len(top_chains)
         final_dataset = []
         weights = []
         for sent in self.sents:
             sent_words = nltk.word_tokenize(sent)
             weight = 1
-            used = False
+            used_chains = [False] * len(top_chains)
             for word in sent_words:
                 for i in range(len(top_chains)):
                     if word in top_chains[i]:
-                        if not used and not used_chains[i]:
+                        if not used_chains[i]:
                             used_chains[i] = True
-                            used = True
-                            weight += 10
-                        else:
-                            weight += 1
+                            weight += 10 * chain_weights[i]
+                            chain_weights[i] *= 0.99
             weight *= multiplier
-            multiplier *= 0.95
+            multiplier *= 0.99
             weights.append(weight)
         ranks = [a[0] for a in sorted(enumerate(sorted(enumerate(weights), key=lambda x:x[1], reverse=True)), \
             key=lambda x:x[1][0])]
