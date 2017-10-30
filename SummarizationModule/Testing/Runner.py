@@ -25,7 +25,7 @@ def main():
     """ Main method for initializing a run """
     t0 = time()
     prop = 1.0
-    with open("sample_long.txt", 'r') as f:
+    with open("sample_long.txt", 'r', encoding='utf-8') as f:
         text = f.read()
     text = text[:int(len(text) * prop)]
     print(len(text))
@@ -33,7 +33,7 @@ def main():
     ranked = tester.rank_sentences()
     total = len(ranked)
     for sent in ranked:
-        if sent[1] < total * 0.1:
+        if sent[1] < total * 0.3:
             print(sent[0])
     t1 = time()
     print(t1 - t0)
