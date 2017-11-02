@@ -80,7 +80,7 @@ class Summarizer:
                         if min_val == -1 or val < min_val:
                             min_val = val
                             min_ind = i
-                    group_pool.pop(i)
+                    group_pool.pop(min_ind)
 
         while len(group_pool) > 1:
             min_ind = 0
@@ -90,7 +90,7 @@ class Summarizer:
                 if min_val == -1 or val < min_val:
                     min_val = val
                     min_ind = i
-            group_pool.pop[i]
+            group_pool.pop[min_ind]
         return group_pool[0].get_top_chains(num_chains)
 
     def rank_sentences(self):
