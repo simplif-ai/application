@@ -224,3 +224,12 @@ class LexChainGroup:
         for chain in schains:
             skchains.append(chain.get_key_words())
         return skchains[-n:]
+
+    def get_copy(self):
+        """
+        Returns a copy of self.
+        """
+        new_chains = []
+        for chain in self.chains:
+            new_chains.append(chain.get_copy())
+        return LexChainGroup(chains=new_chains, chain_cap=self.chain_cap)
