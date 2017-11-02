@@ -128,7 +128,6 @@ class LexChain:
 
         Only keeps words with more than the average amount of word occurrences
         """
-        #TODO: may need to filter out more than just half the words
         average = 0
         for key in self.words:
             average += self.words[key].get_count()
@@ -217,5 +216,4 @@ class LexChainGroup:
         skchains = []
         for chain in schains:
             skchains.append(chain.get_key_words())
-        print(skchains[-n:])
         return skchains[-n:]

@@ -191,4 +191,4 @@ If you look only at very recent history, the part of the S-curve you're on at th
 We base our ideas about the world on our personal experience, and that experience has ingrained the rate of growth of the recent past in our heads as "the way things happen."
 If I tell you, later in this post, that you may live to be 150, or 250, or not die at all, your instinct will be, "That's stupid-if there's one thing I know from history, it's that everybody dies."
 
-Results:
+Results: Seems that 0.5 standard deviations above the mean is most optimal. This will be included in the final code.
