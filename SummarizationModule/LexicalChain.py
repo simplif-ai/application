@@ -97,7 +97,6 @@ class LexChain:
 
     def get_simil(self, synset):
         """ Uses basic heuristic to compare the relevance of a synset to the chain """
-        #TODO: use a better heuristic
         highest = 0
         for key in self.word_q:
             simil = wn.path_similarity(self.words[key].get_synset(), synset)
@@ -108,7 +107,6 @@ class LexChain:
 
     def get_strength(self):
         """ Uses basic heuristic to compute the internal strength of the chain """
-        #TODO: use a better heuristic
         return self.strength
 
     def get_score(self):
@@ -144,6 +142,15 @@ class LexChain:
                 key_words.append(key)
 
         return key_words
+
+    def get_copy(self):
+        """
+        Returns a copy of self.
+        """
+        new_words = dict()
+        for key in self.words:
+            new_words[key] = self.words[key]
+        return LexChain(words=new_words, length=self.length, strength=self.strength, wqlen=self.q_length)
 
 
 class LexChainGroup:
@@ -217,3 +224,12 @@ class LexChainGroup:
         for chain in schains:
             skchains.append(chain.get_key_words())
         return skchains[-n:]
+
+    def get_copy(self):
+        """
+        Returns a copy of self.
+        """
+        new_chains = []
+        for chain in self.chains:
+            new_chains.append(chain.get_copy())
+        return LexChainGroup(chains=new_chains, chain_cap=self.chain_cap)

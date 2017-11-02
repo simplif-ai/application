@@ -56,9 +56,45 @@ class Summarizer:
         top = lc_group.get_top_chains(num_chains)
         return top
 
+    def find_best_chains_nogreedy(self, num_chains):
+        """
+        Generates chains and returns strongest chains, considering multiple cases aside from greedy case
+        """
+        group_pool = [LexChainGroup(chain_cap=len(self.sents) // 6 + 1)]
+        nouns = self.extract_nouns()
+        for noun in nouns:
+            sets = wn.synsets(noun, 'n')
+            if len(sets) > 0:
+                new_group_pool = []
+                for set in sets:
+                    cur_group_pool = [group.get_copy() for group in group_pool]
+                    for group in cur_group_pool:
+                        group.add_to_chain(noun, set)
+                    new_group_pool.extend(cur_group_pool)
+                group_pool = new_group_pool
+                while len(group_pool) > 4:
+                    min_ind = 0
+                    min_val = -1
+                    for i in range(len(group_pool)):
+                        val = group_pool[i].get_strength()
+                        if min_val == -1 or val < min_val:
+                            min_val = val
+                            min_ind = i
+                    group_pool.pop(min_ind)
+
+        while len(group_pool) > 1:
+            min_ind = 0
+            min_val = -1
+            for i in range(len(group_pool)):
+                val = group_pool[i].get_strength()
+                if min_val == -1 or val < min_val:
+                    min_val = val
+                    min_ind = i
+            group_pool.pop[min_ind]
+        return group_pool[0].get_top_chains(num_chains)
+
     def rank_sentences(self):
         """ Ranks sentences in order of relevance and returns exportable dataset """
-        #top_chains = self.find_best_chains(4)
         top_chains = self.find_best_chains(len(self.sents) // 10 + 1)
         multiplier = 1.0
         chain_weights = [1.0] * len(top_chains)
