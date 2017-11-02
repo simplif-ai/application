@@ -143,6 +143,15 @@ class LexChain:
 
         return key_words
 
+    def get_copy(self):
+        """
+        Returns a copy of self.
+        """
+        new_words = dict()
+        for key in self.words:
+            new_words[key] = self.words[key]
+        return LexChain(words=new_words, length=self.length, strength=self.strength, wqlen=self.q_length)
+
 
 class LexChainGroup:
     """ Class representing a possible grouping of chains """
