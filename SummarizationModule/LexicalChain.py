@@ -134,9 +134,14 @@ class LexChain:
             average += self.words[key].get_count()
         average = average / len(self.words.keys())
 
+        sd = 0
+        for key in self.words:
+            sd += (self.words[key].get_count() - average) ** 2
+        sd = ((sd / len(self.words.keys())) ** 0.5)
+
         key_words = []
         for key in self.words:
-            if self.words[key].get_count() >= average:
+            if self.words[key].get_count() >= average + 0.5 * sd:
                 key_words.append(key)
 
         return key_words
@@ -212,4 +217,5 @@ class LexChainGroup:
         skchains = []
         for chain in schains:
             skchains.append(chain.get_key_words())
+        print(skchains[-n:])
         return skchains[-n:]

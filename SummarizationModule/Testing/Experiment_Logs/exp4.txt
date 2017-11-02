@@ -142,4 +142,4 @@ We base our ideas about the world on our personal experience, and that experienc
 If I tell you, later in this post, that you may live to be 150, or 250, or not die at all, your instinct will be, "That's stupid-if there's one thing I know from history, it's that everybody dies."
 
 
-Results:
+Results: Seems that the new settings with len // 10 + 1 chains is ideal. Code has been updated as such.
