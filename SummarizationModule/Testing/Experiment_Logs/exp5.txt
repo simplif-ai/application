@@ -1,56 +1,14 @@
-Experiment 4: Operation Nitrogen Morbid
+Experiment 5: Operation Stormy Hurricane
 
-Goal: In order to scale the summarizer to longer texts, we must use more
-lexical chains in the summarization.
+Goal: We currently use only the top 50% most commonly appearing words in each lexical chain
+as key words, but we may want to limit this further.
 
 Text(s) used:
-sample_long.txt (13544 char)
+sample_long.txt (11557 char)
 
 Experiment Log:
-10/29 8:45PM
-Original code
-Edge1
-
-It seems like a pretty intense place to be standing-but then you have to remember something about what it's like to stand on a time graph: you can't see what's to your right.
-So here's how it actually feels to stand there:
-
-Edge
-
-Which probably feels pretty normal…
-
-_______________
-
-The Far Future-Coming Soon
-Imagine taking a time machine back to 1750-a time when the world was in a permanent power outage, long-distance communication meant either yelling loudly or firing a cannon in the air, and all transportation ran on hay.
-It's impossible for us to understand what it would be like for him to see shiny capsules racing by on a highway, talk to people who had been on the other side of the ocean earlier in the day, watch sports that were being played 1,000 miles away, hear a musical performance that happened 50 years ago, and play with my magical wizard rectangle that he could use to capture a real-life image or record a living moment, generate a map with a paranormal moving blue dot that shows him where he is, look at someone's face and chat with them even though they're on the other side of the country, and worlds of other inconceivable sorcery.
-The 1500 guy would learn some mind-bending shit about space and physics, he'd be impressed with how committed Europe turned out to be with that new imperialism fad, and he'd have to do some major revisions of his world map conception.
-But watching everyday life go by in 1750-transportation, communication, etc.-definitely wouldn't make him die.
-No, in order for the 1750 guy to have as much fun as we had with him, he'd have to go much farther back-maybe all the way back to about 12,000 BC, before the First Agricultural Revolution gave rise to the first cities and to the concept of civilization.
-In order for someone to be transported into the future and die from the level of shock they'd experience, they have to go enough years ahead that a "die level of progress," or a Die Progress Unit (DPU) has been achieved.
-The post-Industrial Revolution world has moved so quickly that a 1750 person only needs to go forward a couple hundred years for a DPU to have happened.
-This pattern-human progress moving quicker and quicker as time goes on-is what futurist Ray Kurzweil calls human history's Law of Accelerating Returns.
-19th century humanity knew more and had better technology than 15th century humanity, so it's no surprise that humanity made far more advances in the 19th century than in the 15th century-15th century humanity was no match for 19th century humanity.11← open these
-
-This works on smaller scales too.
-The movie Back to the Future came out in 1985, and "the past" took place in 1955.
-It was a different world, yes-but if the movie were made today and the past took place in 1985, the movie could have had much more fun with much bigger differences.
-The character would be in a time before personal computers, internet, or cell phones-today's Marty McFly, a teenager born in the late 90s, would be much more out of place in 1985 than the movie's Marty McFly was in 1955.
-the next DPU might only take a couple decades-and the world in 2050 might be so vastly different than today's world that we would barely recognize it.
-It's what many scientists smarter and more knowledgeable than you or I firmly believe-and if you look at history, it's what we should logically predict.
-So then why, when you hear me say something like "the world 35 years from now might be totally unrecognizable," are you thinking, "Cool….but nahhhhhhh"?
-Three reasons we're skeptical of outlandish forecasts of the future:
-
-1) When it comes to history, we think in straight lines.
-When we think about the extent to which the world will change in the 21st century, we just take the 20th century progress and add it to the year 2000.
-In order to think about the future correctly, you need to imagine things moving at a much faster rate than they're moving now.
-A leveling off as the particular paradigm matures3
-
-If you look only at very recent history, the part of the S-curve you're on at the moment can obscure your perception of how fast things are advancing.
-We base our ideas about the world on our personal experience, and that experience has ingrained the rate of growth of the recent past in our heads as "the way things happen."
-If I tell you, later in this post, that you may live to be 150, or 250, or not die at all, your instinct will be, "That's stupid-if there's one thing I know from history, it's that everybody dies."
-
-10/29 9:20PM
-Modified code with num sentences // 10 + 1 chains
+11/01 9:58PM
+Original code (above mean)
 Edge1
 
 It seems like a pretty intense place to be standing-but then you have to remember something about what it's like to stand on a time graph: you can't see what's to your right.
@@ -97,11 +55,8 @@ If you look only at very recent history, the part of the S-curve you're on at th
 We base our ideas about the world on our personal experience, and that experience has ingrained the rate of growth of the recent past in our heads as "the way things happen."
 If I tell you, later in this post, that you may live to be 150, or 250, or not die at all, your instinct will be, "That's stupid-if there's one thing I know from history, it's that everybody dies."
 
-10/29 9:55PM
-Modified code with num sentences // 8 + 1 chains
-Edge1
-
-It seems like a pretty intense place to be standing-but then you have to remember something about what it's like to stand on a time graph: you can't see what's to your right.
+11/01 10:00PM
+Modified code (above 1 SD)
 So here's how it actually feels to stand there:
 
 Edge
@@ -115,7 +70,95 @@ Imagine taking a time machine back to 1750-a time when the world was in a perman
 It's impossible for us to understand what it would be like for him to see shiny capsules racing by on a highway, talk to people who had been on the other side of the ocean earlier in the day, watch sports that were being played 1,000 miles away, hear a musical performance that happened 50 years ago, and play with my magical wizard rectangle that he could use to capture a real-life image or record a living moment, generate a map with a paranormal moving blue dot that shows him where he is, look at someone's face and chat with them even though they're on the other side of the country, and worlds of other inconceivable sorcery.
 The 1500 guy would learn some mind-bending shit about space and physics, he'd be impressed with how committed Europe turned out to be with that new imperialism fad, and he'd have to do some major revisions of his world map conception.
 No, in order for the 1750 guy to have as much fun as we had with him, he'd have to go much farther back-maybe all the way back to about 12,000 BC, before the First Agricultural Revolution gave rise to the first cities and to the concept of civilization.
-In order for someone to be transported into the future and die from the level of shock they'd experience, they have to go enough years ahead that a "die level of progress," or a Die Progress Unit (DPU) has been achieved.
+So a DPU took over 100,000 years in hunter-gatherer times, but at the post-Agricultural Revolution rate, it only took about 12,000 years.
+The post-Industrial Revolution world has moved so quickly that a 1750 person only needs to go forward a couple hundred years for a DPU to have happened.
+This pattern-human progress moving quicker and quicker as time goes on-is what futurist Ray Kurzweil calls human history's Law of Accelerating Returns.
+19th century humanity knew more and had better technology than 15th century humanity, so it's no surprise that humanity made far more advances in the 19th century than in the 15th century-15th century humanity was no match for 19th century humanity.11← open these
+
+This works on smaller scales too.
+It was a different world, yes-but if the movie were made today and the past took place in 1985, the movie could have had much more fun with much bigger differences.
+The average rate of advancement between 1985 and 2015 was higher than the rate between 1955 and 1985-because the former was a more advanced world-so much more change happened in the most recent 30 years than in the prior 30.
+Kurzweil suggests that the progress of the entire 20th century would have been achieved in only 20 years at the rate of advancement in the year 2000-in other words, by 2000, the rate of progress was five times faster than the average rate of progress during the 20th century.
+the next DPU might only take a couple decades-and the world in 2050 might be so vastly different than today's world that we would barely recognize it.
+It's what many scientists smarter and more knowledgeable than you or I firmly believe-and if you look at history, it's what we should logically predict.
+So then why, when you hear me say something like "the world 35 years from now might be totally unrecognizable," are you thinking, "Cool….but nahhhhhhh"?
+Three reasons we're skeptical of outlandish forecasts of the future:
+
+1) When it comes to history, we think in straight lines.
+When we think about the extent to which the world will change in the 21st century, we just take the 20th century progress and add it to the year 2000.
+If someone is being more clever about it, they might predict the advances of the next 30 years not by looking at the previous 30 years, but by taking the current rate of progress and judging based on that.
+Projections
+
+2) The trajectory of very recent history often tells a distorted story.
+Kurzweil explains that progress happens in "S-curves":
+
+S-Curves
+
+An S is created by the wave of progress when a new paradigm sweeps the world.
+A leveling off as the particular paradigm matures3
+
+If you look only at very recent history, the part of the S-curve you're on at the moment can obscure your perception of how fast things are advancing.
+We base our ideas about the world on our personal experience, and that experience has ingrained the rate of growth of the recent past in our heads as "the way things happen."
+If I tell you, later in this post, that you may live to be 150, or 250, or not die at all, your instinct will be, "That's stupid-if there's one thing I know from history, it's that everybody dies."
+
+11/01 10:29PM
+Modified code (above 2 SD)
+So here's how it actually feels to stand there:
+
+Edge
+
+Which probably feels pretty normal…
+
+_______________
+
+The Far Future-Coming Soon
+Imagine taking a time machine back to 1750-a time when the world was in a permanent power outage, long-distance communication meant either yelling loudly or firing a cannon in the air, and all transportation ran on hay.
+It's impossible for us to understand what it would be like for him to see shiny capsules racing by on a highway, talk to people who had been on the other side of the ocean earlier in the day, watch sports that were being played 1,000 miles away, hear a musical performance that happened 50 years ago, and play with my magical wizard rectangle that he could use to capture a real-life image or record a living moment, generate a map with a paranormal moving blue dot that shows him where he is, look at someone's face and chat with them even though they're on the other side of the country, and worlds of other inconceivable sorcery.
+The 1500 guy would learn some mind-bending shit about space and physics, he'd be impressed with how committed Europe turned out to be with that new imperialism fad, and he'd have to do some major revisions of his world map conception.
+If he went back 12,000 years to 24,000 BC and got a guy and brought him to 12,000 BC, he'd show the guy everything and the guy would be like, "Okay what's your point who cares."
+For the 12,000 BC guy to have the same fun, he'd have to go back over 100,000 years and get someone he could show fire and language to for the first time.
+So a DPU took over 100,000 years in hunter-gatherer times, but at the post-Agricultural Revolution rate, it only took about 12,000 years.
+The post-Industrial Revolution world has moved so quickly that a 1750 person only needs to go forward a couple hundred years for a DPU to have happened.
+This pattern-human progress moving quicker and quicker as time goes on-is what futurist Ray Kurzweil calls human history's Law of Accelerating Returns.
+It was a different world, yes-but if the movie were made today and the past took place in 1985, the movie could have had much more fun with much bigger differences.
+The average rate of advancement between 1985 and 2015 was higher than the rate between 1955 and 1985-because the former was a more advanced world-so much more change happened in the most recent 30 years than in the prior 30.
+Kurzweil suggests that the progress of the entire 20th century would have been achieved in only 20 years at the rate of advancement in the year 2000-in other words, by 2000, the rate of progress was five times faster than the average rate of progress during the 20th century.
+the next DPU might only take a couple decades-and the world in 2050 might be so vastly different than today's world that we would barely recognize it.
+It's what many scientists smarter and more knowledgeable than you or I firmly believe-and if you look at history, it's what we should logically predict.
+So then why, when you hear me say something like "the world 35 years from now might be totally unrecognizable," are you thinking, "Cool….but nahhhhhhh"?
+Three reasons we're skeptical of outlandish forecasts of the future:
+
+1) When it comes to history, we think in straight lines.
+When we think about the extent to which the world will change in the 21st century, we just take the 20th century progress and add it to the year 2000.
+If someone is being more clever about it, they might predict the advances of the next 30 years not by looking at the previous 30 years, but by taking the current rate of progress and judging based on that.
+Projections
+
+2) The trajectory of very recent history often tells a distorted story.
+Kurzweil explains that progress happens in "S-curves":
+
+S-Curves
+
+An S is created by the wave of progress when a new paradigm sweeps the world.
+A leveling off as the particular paradigm matures3
+
+If you look only at very recent history, the part of the S-curve you're on at the moment can obscure your perception of how fast things are advancing.
+We base our ideas about the world on our personal experience, and that experience has ingrained the rate of growth of the recent past in our heads as "the way things happen."
+If I tell you, later in this post, that you may live to be 150, or 250, or not die at all, your instinct will be, "That's stupid-if there's one thing I know from history, it's that everybody dies."
+
+11/01 10:29PM
+Modified code (above 0.5 SD)
+It seems like a pretty intense place to be standing-but then you have to remember something about what it's like to stand on a time graph: you can't see what's to your right.
+So here's how it actually feels to stand there:
+
+Edge
+
+Which probably feels pretty normal…
+
+_______________
+
+The Far Future-Coming Soon
+Imagine taking a time machine back to 1750-a time when the world was in a permanent power outage, long-distance communication meant either yelling loudly or firing a cannon in the air, and all transportation ran on hay.
+The 1500 guy would learn some mind-bending shit about space and physics, he'd be impressed with how committed Europe turned out to be with that new imperialism fad, and he'd have to do some major revisions of his world map conception.
 So a DPU took over 100,000 years in hunter-gatherer times, but at the post-Agricultural Revolution rate, it only took about 12,000 years.
 The post-Industrial Revolution world has moved so quickly that a 1750 person only needs to go forward a couple hundred years for a DPU to have happened.
 This pattern-human progress moving quicker and quicker as time goes on-is what futurist Ray Kurzweil calls human history's Law of Accelerating Returns.
@@ -125,6 +168,7 @@ This works on smaller scales too.
 The movie Back to the Future came out in 1985, and "the past" took place in 1955.
 It was a different world, yes-but if the movie were made today and the past took place in 1985, the movie could have had much more fun with much bigger differences.
 The character would be in a time before personal computers, internet, or cell phones-today's Marty McFly, a teenager born in the late 90s, would be much more out of place in 1985 than the movie's Marty McFly was in 1955.
+The average rate of advancement between 1985 and 2015 was higher than the rate between 1955 and 1985-because the former was a more advanced world-so much more change happened in the most recent 30 years than in the prior 30.
 the next DPU might only take a couple decades-and the world in 2050 might be so vastly different than today's world that we would barely recognize it.
 It's what many scientists smarter and more knowledgeable than you or I firmly believe-and if you look at history, it's what we should logically predict.
 So then why, when you hear me say something like "the world 35 years from now might be totally unrecognizable," are you thinking, "Cool….but nahhhhhhh"?
@@ -132,14 +176,19 @@ Three reasons we're skeptical of outlandish forecasts of the future:
 
 1) When it comes to history, we think in straight lines.
 When we think about the extent to which the world will change in the 21st century, we just take the 20th century progress and add it to the year 2000.
+If someone is being more clever about it, they might predict the advances of the next 30 years not by looking at the previous 30 years, but by taking the current rate of progress and judging based on that.
 Projections
 
 2) The trajectory of very recent history often tells a distorted story.
+Kurzweil explains that progress happens in "S-curves":
+
+S-Curves
+
+An S is created by the wave of progress when a new paradigm sweeps the world.
 A leveling off as the particular paradigm matures3
 
 If you look only at very recent history, the part of the S-curve you're on at the moment can obscure your perception of how fast things are advancing.
 We base our ideas about the world on our personal experience, and that experience has ingrained the rate of growth of the recent past in our heads as "the way things happen."
 If I tell you, later in this post, that you may live to be 150, or 250, or not die at all, your instinct will be, "That's stupid-if there's one thing I know from history, it's that everybody dies."
 
-
-Results: Seems that the new settings with len // 10 + 1 chains is ideal. Code has been updated as such.
+Results: Seems that 0.5 standard deviations above the mean is most optimal. This will be included in the final code.
