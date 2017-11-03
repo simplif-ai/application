@@ -7,9 +7,9 @@ LexicalChain.py contains the code for the data structures used in the summarizer
 of `LexChain`s, which each contain a list of `LexWord`s contextually related to each other.
 
 ### LexWord
-Initialization:
+#### Initialization:
     LexWord(word, synset)
-Incrementing word counter:
+#### Incrementing word counter:
     add_count()
 LexWord also contains getters for `word`,`synset`, and `count`.
 
