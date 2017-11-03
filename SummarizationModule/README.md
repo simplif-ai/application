@@ -33,7 +33,27 @@ The score is defined as the relative value of importance of the chain compared t
     get_key_words()
 Returns words that are representative of the chain. Chooses by returning words that have counts higher than the
 mean + 0.5 * standard deviation.
-#### Return a shallow copy of the chain:
+#### Obtain a shallow copy of the chain:
+    get_copy()
+
+### LexChainGroup
+`LexChainGroup` contains a group of `LexChain`s built together from a text.
+#### Initialization:
+    LexChainGroup(chains=None, chain_cap=-1)
+`chain_cap` represents the maximum amount of chains that the group is willing to hold. If this cap is exceeded, the
+weakest chain is dropped from the group. If this is set to -1, there is no cap.
+#### Obtain most relevant synset from a group of synsets:
+    get_most_relevant(synsetset)
+Use this to pick the correct definition for a word with multiple definitions.
+#### Add a new word to the chain group:
+    add_to_chain(word, synset):
+#### Obtain strength of chain:
+    get_strength()
+Returns the sum of strengths of all chains.
+#### Obtain most relevant chains:
+    get_top_chains(n)
+Returns the n highest scoring chains.
+#### Obtain a shallow copy of the chain group:
     get_copy()
 
 ## Summarizer.py
