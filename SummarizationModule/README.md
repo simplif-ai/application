@@ -6,6 +6,13 @@ the API, please refer to the README.md in the API folder.
 LexicalChain.py contains the code for the data structures used in the summarizer. `LexChainGroup`s store a collection
 of `LexChain`s, which each contain a list of `LexWord`s contextually related to each other.
 
+### LexWord
+Initialization:
+    LexWord(word, synset)
+Incrementing word counter:
+    add_count()
+LexWord also contains getters for `word`,`synset`, and `count`.
+
 ## Summarizer.py
 Summarizer.py uses the data structures in LexicalChain.py to generate a summary from a given text.
 
