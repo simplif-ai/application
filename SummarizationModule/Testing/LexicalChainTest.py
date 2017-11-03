@@ -50,8 +50,8 @@ class TestLexChain(unittest.TestCase):
 
     def test_basic(self):
         test_chain = LexChain()
-        test_chain.add_word("hello", None)
-        test_chain.add_word("world", None)
+        test_chain.add_word("hello", wn.synsets("hello")[0])
+        test_chain.add_word("world", wn.synsets("world")[0])
         wlist = test_chain.get_words()
         self.assertEqual(wlist["world"].get_word(), "world")
 

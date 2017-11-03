@@ -25,7 +25,7 @@ def main():
     """ Main method for initializing a run """
     t0 = time()
     prop = 1.0
-    with open("sample_long.txt", 'r', encoding='utf-8') as f:
+    with open("blah.txt", 'r', encoding='utf-8') as f:
         text = f.read()
     text = text[:int(len(text) * prop)]
     print(len(text))
