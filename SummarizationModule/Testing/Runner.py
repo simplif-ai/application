@@ -17,12 +17,18 @@ sys.path.append('../../')
 
 from time import time
 from SummarizationModule.Summarizer import Summarizer
+from SummarizationModule.SummarizerTools import SummarizerTools
 
 # =============================================================================
 
 
 def main():
     """ Main method for initializing a run """
+
+    #st = SummarizerTools()
+    #print(st.extract_ppt("testppt.pptx"))
+
+
     t0 = time()
     prop = 1.0
     with open("blah.txt", 'r', encoding='utf-8') as f:
