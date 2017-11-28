@@ -98,6 +98,10 @@ def upload_file():
 			if text == '':
 				return jsonify({'error': 'We were unable to find text in the file', 'success': False})
 			return jsonify({'text': wrapper(text), 'success': True}), 200
+                else:
+                    return jsonify({'error': 'no file found or not an allowed extension/filename', 'success': False})
+        else:
+            return jsonify({'error': 'must be a post request to upload a file', 'success': False})
 
 if __name__ == '__main__':
     application.debug = True
