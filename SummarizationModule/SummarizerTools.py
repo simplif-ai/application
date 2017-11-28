@@ -16,6 +16,7 @@ import sys
 sys.path.append('../')
 
 from pptx import Presentation
+from subprocess import Popen as po, PIPE as pip
 
 # =============================================================================
 
@@ -44,3 +45,7 @@ class SummarizerTools:
             text += ' '
 
         return text
+
+    def extract_pdf(self, path):
+        return (po("pdftotext {} -".format(path), shell=True, stdout=pip).communicate()[0].decode('ascii'))
+
