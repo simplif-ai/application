@@ -16,7 +16,8 @@ import sys
 sys.path.append('../')
 
 from pptx import Presentation
-from subprocess import Popen as po, PIPE as pip
+import subprocess
+import time
 
 # =============================================================================
 
@@ -47,5 +48,22 @@ class SummarizerTools:
         return text
 
     def extract_pdf(self, path):
-        return (po("pdftotext {} -".format(path), shell=True, stdout=pip).communicate()[0].decode('ascii'))
+        subprocess.Popen(["pdftotext", path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+    def extract_text(self, path):
+        f = open(path, 'r')
+        res = f.read()
+        f.close()
+        return res
+
+def getText(path):
+	st = SummarizerTools()
+	ext = path[-3:].lower()
+	if ext == 'pptx':
+		return st.extract_ppt(path)
+	elif ext == 'pdf':
+		st.extract_pdf(path)
+		time.sleep(1)
+		return st.extract_text(path[:-3] + 'txt')
+	elif ext == 'txt':
+		return st.extract_text(path)
