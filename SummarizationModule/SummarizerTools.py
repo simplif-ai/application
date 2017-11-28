@@ -59,7 +59,7 @@ class SummarizerTools:
 def getText(path):
 	st = SummarizerTools()
 	ext = path[-3:].lower()
-	if ext == 'ppt':
+	if ext == 'pptx':
 		return st.extract_ppt(path)
 	elif ext == 'pdf':
 		st.extract_pdf(path)
