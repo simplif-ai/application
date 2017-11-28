@@ -20,7 +20,7 @@ from SummarizerTools import getText
 from werkzeug import secure_filename
 
 UPLOAD_FOLDER = os.path.basename('uploads')
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'ppt'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'pptx'])
 
 # Create a Flask object
 application = Flask(__name__, template_folder='')
