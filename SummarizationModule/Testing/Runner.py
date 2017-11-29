@@ -26,7 +26,7 @@ def main():
     """ Main method for initializing a run """
 
     #st = SummarizerTools()
-    #print(st.extract_ppt("testppt.pptx"))
+    #print(st.extract_ppt("pss.pptx"))
 
 
     t0 = time()

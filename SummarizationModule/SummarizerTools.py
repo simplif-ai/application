@@ -37,10 +37,12 @@ class SummarizerTools:
 
         text = ""
         for sent in sents:
-            sentstr = sent.strip()
-            text += sentstr
-            if sentstr[-1] != '.' and sentstr[-1] != '!' and sentstr[-1] != '?':
-                text += '.'
-            text += ' '
+            for bullet in sent.split('\n'):
+                bullstr = bullet.strip()
+                if len(bullstr) > 0:
+                    text += bullstr
+                    if bullstr[-1] != '.' and bullstr[-1] != '!' and bullstr[-1] != '?':
+                        text += '.'
+                    text += ' '
 
         return text
