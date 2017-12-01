@@ -54,11 +54,17 @@ class LexWord:
 class LexChain:
     """ Class representing chains of words within the same lexical context """
 
-    def __init__(self, words=None):
+    def __init__(self, words=None, length=0, strength=0, wqlen = 10):
         """ Initialize field variables """
         self.words = dict()
+        self.strength = 0
+        self.length = 0
+        self.q_length = wqlen
+        self.word_q = []
         if words != None:
             self.words = words
+            self.length = length
+            self.strength = strength
 
     def __repr__(self):
         """ String representation """
@@ -72,8 +78,18 @@ class LexChain:
         """ Adds new word along with its synset into the chain """
         if word not in self.words:
             self.words[word] = LexWord(word, synset)
+            self.word_q.append(word)
+            for key in self.word_q:
+                self.strength += 7 * wn.path_similarity(self.words[key].get_synset(), synset)
+                if len(self.word_q) > self.q_length:
+                    self.word_q.pop(0)
         else:
             self.words[word].add_count()
+            self.strength += 10
+            self.word_q.append(word)
+            if len(self.word_q) > self.q_length:
+                self.word_q.pop(0)
+        self.length += 1
 
     def get_words(self):
         """ Getter function for word dictionary """
@@ -81,9 +97,8 @@ class LexChain:
 
     def get_simil(self, synset):
         """ Uses basic heuristic to compare the relevance of a synset to the chain """
-        #TODO: use a better heuristic
         highest = 0
-        for key in self.words:
+        for key in self.word_q:
             simil = wn.path_similarity(self.words[key].get_synset(), synset)
             if simil > highest:
                 highest = simil
@@ -92,16 +107,7 @@ class LexChain:
 
     def get_strength(self):
         """ Uses basic heuristic to compute the internal strength of the chain """
-        #TODO: rework this so it updates dynamically
-        #TODO: use a better heuristic
-        total = 0
-        for key in self.words:
-            total += (self.words[key].get_count() - 1) * 10
-            for key2 in self.words:
-                if key != key2:
-                    total += 7 * wn.path_similarity(self.words[key].get_synset(), self.words[key2].get_synset())
-
-        return total
+        return self.strength
 
     def get_score(self):
         """
@@ -110,13 +116,9 @@ class LexChain:
         Calculated as such:
         score = length * h_index (homogeneity)
         """
-        length = 0
-        for key in self.words:
-            length += self.words[key].get_count()
+        h_index = 1 - (len(self.words.keys()) / self.length)
 
-        h_index = 1 - (len(self.words.keys()) / length)
-
-        return length * h_index
+        return self.length * h_index
 
     def get_key_words(self):
         """
@@ -124,28 +126,42 @@ class LexChain:
 
         Only keeps words with more than the average amount of word occurrences
         """
-        #TODO: may need to filter out more than just half the words
         average = 0
         for key in self.words:
             average += self.words[key].get_count()
         average = average / len(self.words.keys())
 
+        sd = 0
+        for key in self.words:
+            sd += (self.words[key].get_count() - average) ** 2
+        sd = ((sd / len(self.words.keys())) ** 0.5)
+
         key_words = []
         for key in self.words:
-            if self.words[key].get_count() >= average:
+            if self.words[key].get_count() >= average + 0.5 * sd:
                 key_words.append(key)
 
         return key_words
+
+    def get_copy(self):
+        """
+        Returns a copy of self.
+        """
+        new_words = dict()
+        for key in self.words:
+            new_words[key] = self.words[key]
+        return LexChain(words=new_words, length=self.length, strength=self.strength, wqlen=self.q_length)
 
 
 class LexChainGroup:
     """ Class representing a possible grouping of chains """
 
-    def __init__(self, chains=None):
+    def __init__(self, chains=None, chain_cap=-1):
         """ Initialize field variables """
         self.chains = []
         if chains != None:
             self.chains = chains
+        self.chain_cap = chain_cap
 
     def get_most_relevant(self, synsetset):
         """ Obtain the most relevant chain to the synset out of the chain group """
@@ -176,6 +192,12 @@ class LexChainGroup:
             newchain = LexChain()
             newchain.add_word(word, synset)
             self.chains.append(newchain)
+            if self.chain_cap != -1 and len(self.chains) > self.chain_cap:
+                min_ind = 0
+                for i in range(len(self.chains)):
+                    if self.chains[i].get_strength() < self.chains[min_ind].get_strength():
+                        min_ind = i
+                self.chains.pop(min_ind)
 
     def get_strength(self):
         """ Return the sum of all chains in the group """
@@ -202,3 +224,12 @@ class LexChainGroup:
         for chain in schains:
             skchains.append(chain.get_key_words())
         return skchains[-n:]
+
+    def get_copy(self):
+        """
+        Returns a copy of self.
+        """
+        new_chains = []
+        for chain in self.chains:
+            new_chains.append(chain.get_copy())
+        return LexChainGroup(chains=new_chains, chain_cap=self.chain_cap)

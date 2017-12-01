@@ -46,13 +46,13 @@ class TestSentenceExtraction(unittest.TestCase):
 
     def test_basic(self):
         test_summ = Summarizer("I hit the baseball with a bat. I like food. Ms. Vincent is good at coding.")
-        self.assertEqual(test_summ.extract_sentences(), ['I hit the baseball with a bat.', \
+        self.assertEqual(test_summ.get_sentences(), ['I hit the baseball with a bat.', \
                                                          'I like food.', \
                                                          'Ms. Vincent is good at coding.'])
 
     def test_empty(self):
         test_summ = Summarizer("")
-        self.assertEqual(test_summ.extract_sentences(), [])
+        self.assertEqual(test_summ.get_sentences(), [])
 
 
 if __name__ == "__main__":

@@ -1,0 +1,35 @@
+Experiment 3: Operation Intense Gamma
+
+Goal: In order to speed up the summarizer, we want to avoid having too many
+small lexical chains in a lexical chain group. We solve this by filtering out
+smaller lexical chains as more chains are added.
+
+Text(s) used:
+sample.txt (4773 char)
+sample_long.txt (13544 char)
+
+Experiment Log:
+10/24 8:25PM
+Original code with sample.txt
+26
+
+10/24 8:32PM
+Modified code with chain cap 6 with sample.txt
+11.74
+
+10/28 8:54PM
+Modified code with chain cap 6 for sample_long.txt
+83.2
+
+10/28 9:02PM
+Modified code with chain cap (num sentences // 3 + 1) for sample_long.txt
+843
+
+10/28 9:20PM
+Modified code with chain cap (num sentences // 6 + 1) for sample_long.txt
+482
+
+Results: Looks like filtering lexical chains preserves summary quality and simultaneously
+speeds up summarizer for long texts. We will be keeping this filter.
+
+Experiment complete.

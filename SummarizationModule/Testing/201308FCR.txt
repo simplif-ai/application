@@ -1,0 +1,75 @@
+{
+  "success": true, 
+  "text": [
+    [
+      "REGISTRATION FOR FIRST COMMUNION,\nFIRST RECONCILIATON AND CONFIRMATION\nAT ST. THERESE PARISH\nRegistration forms will be sent home through the Courtice Catholic schools for First Communion (the first week of September)\nand Confirmation (the week of October 7th).", 
+      1, 
+      0
+    ], 
+    [
+      "FIRST COMMUNION INFORMATION\nPlease note that reception of First Communion and Reconciliation is in grade two.", 
+      2, 
+      1
+    ], 
+    [
+      "If your child is in grade three or higher and has not received First Communion, please sign up at the entrance to the church.", 
+      3, 
+      2
+    ], 
+    [
+      "See +++\nThe deadline for registration for First Communion is the weekend of Sept. 14/15.", 
+      0, 
+      3
+    ], 
+    [
+      "A copy of your child\u2019s Baptismal certificate will be needed for registration\n\nCONFIRMATION INFORMATION\nPlease note that Reception of Confirmation is received in grade seven.", 
+      4, 
+      4
+    ], 
+    [
+      "If your child is in grade 8 or higher and has not been confirmed, please sign up at the entrance.", 
+      9, 
+      5
+    ], 
+    [
+      "See +++\nThe deadline for registration for Confirmation is the weekend of October 26/27.", 
+      5, 
+      6
+    ], 
+    [
+      "A copy of your child\u2019s Baptismal and Communion certificates will be needed for registration.", 
+      6, 
+      7
+    ], 
+    [
+      "If your child attends Holy Family, St. Joseph\u2019s or another Catholic (outside Courtice ) or a Public school and you attend St. Therese parish,\nplease sign the sign up sheet at the entrance to the Church.", 
+      10, 
+      8
+    ], 
+    [
+      "+++ Registration forms will be available at the entrance of the Church for First Communion the first week in September\nand the first week in October for Confirmation - for the above students .", 
+      7, 
+      9
+    ], 
+    [
+      "Please note that we have about three hundred registrations for student Sacraments and therefore your co operation in meeting these deadlines is imperative.", 
+      11, 
+      10
+    ], 
+    [
+      "It is\nadvisable that you search for your child\u2019s Certificates now, so that you have copies of them to hand in with the registration forms.", 
+      8, 
+      11
+    ], 
+    [
+      "Deadlines will be imposed and we therefore encourage you to have all your documentation in on time.", 
+      12, 
+      12
+    ], 
+    [
+      "Thank you.", 
+      13, 
+      13
+    ]
+  ]
+}

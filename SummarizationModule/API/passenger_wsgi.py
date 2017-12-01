@@ -16,10 +16,17 @@ DEVELOPER NOTES:
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 from SummarizerWrapper import wrapper
+from SummarizerTools import getText
+from werkzeug import secure_filename
+
+UPLOAD_FOLDER = os.path.basename('uploads')
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'pptx'])
 
 # Create a Flask object
 application = Flask(__name__, template_folder='')
 CORS(application)
+
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Form data variable name
 var = 'text'
@@ -38,8 +45,7 @@ errResponse = "WELCOME to the Simplif.ai\'s API for summarization. Our full site
               "\n\t\t\t6\n\t\t],\n\t\t[\n\t\t\t\"for testing\",\n\t\t\t7,\n\t\t\t8\n\t\t],\n\t\t[\n\t\t\t\"json\"," \
               "\n\t\t\t9,\n\t\t\t0\n\t\t]\n\t]\n}"
 
-# TODO Website url that needs to be inserted in the future
-websiteURL = "__INSERT WEBAPP URL HERE__"
+websiteURL = "http://simplif.ai.s3-website.us-east-2.amazonaws.com/"
 
 # =============================================================================
 
@@ -55,7 +61,6 @@ def summarizeTEST():
 def summarize():
         # If there is a GET or HEAD request then send the redirect page because it is probably done from a browser
 	if request.method != 'POST':
-                # TODO Create an actual redirection page
 		return render_template('redirect.html')
         # If our chosen variable name is included in the form data in the body
 	if var in request.form:
@@ -77,6 +82,26 @@ def summarize():
 def wrongMethod(error):
         # Send a well formatted error message back
 		return jsonify({'error': (errResponse % (websiteURL, request.method)), 'success': False})
+
+def allowed_file(filename):
+	return filename[-3:].lower() in ALLOWED_EXTENSIONS
+
+@application.route('/upload', methods=['POST'])
+def upload_file():
+	if request.method == 'POST':
+		file = request.files['file']
+		if file and allowed_file(file.filename):
+			filename = secure_filename(file.filename)
+			file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
+			text = getText(os.path.join(application.config['UPLOAD_FOLDER'], filename))
+			text = text.strip()
+			if text == '':
+				return jsonify({'error': 'We were unable to find text in the file', 'success': False})
+			return jsonify({'text': wrapper(text), 'success': True}), 200
+                else:
+                    return jsonify({'error': 'no file found or not an allowed extension/filename', 'success': False})
+        else:
+            return jsonify({'error': 'must be a post request to upload a file', 'success': False})
 
 if __name__ == '__main__':
     application.debug = True
