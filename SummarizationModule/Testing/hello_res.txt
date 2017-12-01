@@ -1,0 +1,90 @@
+{
+  "success": true, 
+  "text": [
+    [
+      "Welcome to Operating System development; the great frontier.", 
+      5, 
+      0
+    ], 
+    [
+      "Not all \"make it\" in this field, many don't even pass the \"Hello World\" of OS development, but perhaps you will go further and create the next Linux?", 
+      6, 
+      1
+    ], 
+    [
+      "Or Windows?", 
+      7, 
+      2
+    ], 
+    [
+      "Or are your goals lower - MenuetOS?", 
+      0, 
+      3
+    ], 
+    [
+      "Or even CP/M?", 
+      8, 
+      4
+    ], 
+    [
+      "Whatever your goals, OSDev'ing is the great pinnacle of programming.", 
+      1, 
+      5
+    ], 
+    [
+      "But, you're not alone.", 
+      9, 
+      6
+    ], 
+    [
+      "In fact, this entire website, including the forums and this Wiki, are dedicated to OSDev'ing.", 
+      10, 
+      7
+    ], 
+    [
+      "This is not only about great programming skills, but is about community and developing friendships.", 
+      11, 
+      8
+    ], 
+    [
+      "Be those friendships between fellow forum members or IRQs and processes.", 
+      12, 
+      9
+    ], 
+    [
+      "What do you need to succeed in OSDev'ing?", 
+      13, 
+      10
+    ], 
+    [
+      "You should read the Getting Started article.", 
+      14, 
+      11
+    ], 
+    [
+      "If you are going to use C/C++ as your language of choice, you are required to build a GCC Cross-Compiler first.", 
+      2, 
+      12
+    ], 
+    [
+      "And if you prefer to use other Languages then it is important to have some similar tools (e.g.", 
+      3, 
+      13
+    ], 
+    [
+      "compiler) or if there's no such tools it is often only your efforts that can help you.", 
+      15, 
+      14
+    ], 
+    [
+      "But going along with your preferred language can add some motivation and excitement during your work.", 
+      4, 
+      15
+    ], 
+    [
+      "Good luck!", 
+      16, 
+      16
+    ]
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "error": "no file found or not an allowed extension/filename", 
+  "success": false
+}

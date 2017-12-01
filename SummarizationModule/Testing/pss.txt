@@ -1,0 +1,240 @@
+{
+  "success": true, 
+  "text": [
+    [
+      "Week 13 PSS.", 
+      21, 
+      0
+    ], 
+    [
+      "Shubhang Kulkarni & Akshat Goyal.", 
+      22, 
+      1
+    ], 
+    [
+      "Please ... Swipe in.", 
+      23, 
+      2
+    ], 
+    [
+      "Form groups of up to 3 (for collaboration).", 
+      24, 
+      3
+    ], 
+    [
+      "Close laptops.", 
+      25, 
+      4
+    ], 
+    [
+      "Take out notebook/paper and writing instruments.", 
+      26, 
+      5
+    ], 
+    [
+      "Solve problems!", 
+      27, 
+      6
+    ], 
+    [
+      "These are not office hours.", 
+      28, 
+      7
+    ], 
+    [
+      "Problem 13.1 (Flow).", 
+      29, 
+      8
+    ], 
+    [
+      "G=(V,E) is a directed graph with two sources, s1 and s2, and two sinks, t1 and t2.", 
+      2, 
+      9
+    ], 
+    [
+      "G is represented by adjacency lists.", 
+      9, 
+      10
+    ], 
+    [
+      "(i) Describe  an O(nm) time flow algorithm to determine whether G contains two edge disjoint paths, each starting at a source and ending at a sink.", 
+      10, 
+      11
+    ], 
+    [
+      "All four sources and sinks should be used.", 
+      11, 
+      12
+    ], 
+    [
+      "(ii) Describe  an O(nm) time flow algorithm to determine whether G contains two vertex disjoint paths, each starting at one of the sources and ending at one of the sinks.", 
+      3, 
+      13
+    ], 
+    [
+      "Problem 13.2 (Graph).", 
+      30, 
+      14
+    ], 
+    [
+      "A directed graph G=(V,E) is called unilateral if, for any two vertices u and v at least one of the two is reachable from the other one (i.e., there exists either a path from u to v or a path from v to u).", 
+      12, 
+      15
+    ], 
+    [
+      "Obviously, a graph that is strongly connected is also unilateral.", 
+      13, 
+      16
+    ], 
+    [
+      "(i) Give an example of an unilateral graph that is not strongly connected and an example of a directed graph that is not unilateral.", 
+      14, 
+      17
+    ], 
+    [
+      "(ii) Describe an O(n+m) time algorithm to determine whether a graph is unilateral.", 
+      15, 
+      18
+    ], 
+    [
+      "(Hint: Consider the strongly connected components of the graph).", 
+      16, 
+      19
+    ], 
+    [
+      "Problem 13.3 (DP).", 
+      31, 
+      20
+    ], 
+    [
+      "Given two strings S (of length n) and T (of length m), return the \u201cdistance\u201d between the two strings as measured by the  minimum number of \u201ccharacter edit operations\u201d needed to turn string S into string T. Give DP recurrence relations to determine OPT(n,m) representing the minimum number of character edit operations needed.", 
+      0, 
+      21
+    ], 
+    [
+      "The operations are:.", 
+      17, 
+      22
+    ], 
+    [
+      "Copy character from S over to T (cost = 0).", 
+      4, 
+      23
+    ], 
+    [
+      "Delete a character in S (cost =1).", 
+      5, 
+      24
+    ], 
+    [
+      "Insert a character in S (cost =1).", 
+      6, 
+      25
+    ], 
+    [
+      "Substitute one character for another in S (cost=1).", 
+      7, 
+      26
+    ], 
+    [
+      "Examples:.", 
+      32, 
+      27
+    ], 
+    [
+      "S = ALFORITHMSZ.", 
+      8, 
+      28
+    ], 
+    [
+      "T = ALGORITHMZ.", 
+      33, 
+      29
+    ], 
+    [
+      "Has cost(S,T) = 2 (substitute G for F; delete S).", 
+      1, 
+      30
+    ], 
+    [
+      "Problem 13.4 (Greedy).", 
+      34, 
+      31
+    ], 
+    [
+      "You are given n intervals (li, ,ri ).", 
+      35, 
+      32
+    ], 
+    [
+      "Each interval has a weight.", 
+      36, 
+      33
+    ], 
+    [
+      "The objective is to select non-overlapping intervals so that the sum of the weights of the selected intervals is a maximum.", 
+      37, 
+      34
+    ], 
+    [
+      "Consider the following greedy algorithm: select the interval with maximum weight, remove all intervals overlapping with it, and repeat.", 
+      38, 
+      35
+    ], 
+    [
+      "(i) One can implement this algorithm in what running time?", 
+      39, 
+      36
+    ], 
+    [
+      "Describe any data structures used, how the removal of intervals is handled and the overall performance.", 
+      40, 
+      37
+    ], 
+    [
+      "(ii) Does the algorithm select intervals with a maximum sum?", 
+      41, 
+      38
+    ], 
+    [
+      "Prove or disprove.", 
+      42, 
+      39
+    ], 
+    [
+      "Problem 13.5 (Graph).", 
+      43, 
+      40
+    ], 
+    [
+      "Given N currency conversions (Country1 Country2 R), where R is the conversion rate from Country1 to Country2, and 1/R is the conversion rate from Country2 to Country1, determine an algorithm to efficiently handle M new queries asking conversion rates between 2 countries.", 
+      18, 
+      41
+    ], 
+    [
+      "Assume that no provided rates are below 1 and that there are no conflicting conversion rates.", 
+      44, 
+      42
+    ], 
+    [
+      "Also assume that M > N^100 (i.e.", 
+      19, 
+      43
+    ], 
+    [
+      "M is much larger than N).", 
+      20, 
+      44
+    ], 
+    [
+      "Eg.", 
+      45, 
+      45
+    ], 
+    [
+      "You are given 3 conversions (YEN, USD, 114), (USD, GBP, 1.32), (GBP, INR, 1.01), find the conversion rate between (YEN, GBP) or (USD, INR).", 
+      46, 
+      46
+    ]
+  ]
+}

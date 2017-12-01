@@ -16,8 +16,13 @@ import json
 import requests
 
 URL = 'https://ir.thirty2k.com/summarize'
+URL_FILE = 'https://ir.thirty2k.com/upload'
 BASIC_PARAMS = {'text': 'hello this is a test of the api'}
 BASIC_CONN = [['this is', 1, 2], ['a sample', 3, 4], ['list', 5, 6], ['for testing', 7, 8], ['json', 9, 0]]
+PDF_CORR = open('201308FCR.txt', 'r').read()
+TXT_CORR = open('hello_res.txt', 'r').read()
+PPTX_CORR = open('pss.txt', 'r').read()
+ERR_CORR = open('error.txt', 'r').read()
 
 # =============================================================================
 
@@ -44,7 +49,43 @@ class APItest(unittest.TestCase):
 
     def test_sentenceCollection(self):
         arr = self.makeRequest({'text':"I like apples. I like bananas. I like oranges. I like grapes. I love oranges."})
-        self.assertEqual(arr, [ [ "I like apples.", 3, 0 ], [ "I like bananas.", 4, 1 ], [ "I like oranges.", 1, 2 ], [ "I like grapes.", 0, 3 ], [ "I love oranges.", 2, 4 ] ])
+        self.assertEqual(arr, [['I like apples.', 2, 0], ['I like bananas.', 3, 1], ['I like oranges.', 0, 2], ['I like grapes.', 4, 3], ['I love oranges.', 1, 4]])
+
+    def test_uploadPDF(self):
+        fin = open('201308FCR.pdf', 'rb')
+        files = {'file': fin}
+        try:
+            r = requests.post(URL_FILE, files=files)
+        finally:
+            fin.close()
+        self.assertEqual(PDF_CORR, r.text)
+
+    def test_uploadTXT(self):
+        fin = open('hello.txt', 'rb')
+        files = {'file': fin}
+        try:
+            r = requests.post(URL_FILE, files=files)
+        finally:
+            fin.close()
+        self.assertEqual(TXT_CORR, r.text)
+
+    def test_uploadPPTX(self):
+        fin = open('pss.pptx', 'rb')
+        files = {'file': fin}
+        try:
+            r = requests.post(URL_FILE, files=files)
+        finally:
+            fin.close()
+        self.assertEqual(PPTX_CORR, r.text)
+
+    def test_uploadInvalid(self):
+        fin = open('api-tester.py', 'rb')
+        files = {'file': fin}
+        try:
+            r = requests.post(URL_FILE, files=files)
+        finally:
+            fin.close()
+        self.assertEqual(ERR_CORR, r.text)
 
 
 if __name__ == '__main__':
